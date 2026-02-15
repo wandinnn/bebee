@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Bunda Dolphinn ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff85a1;
+            --dark-pink: #ff4d6d;
+            --blue-dolphin: #a2d2ff;
+            --white: #ffffff;
+        }
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #fff0f3 0%, #a2d2ff 100%);
+            font-family: 'Quicksand', sans-serif;
+            color: #444;
+            overflow-x: hidden;
+        }
+        .container { padding: 20px; text-align: center; }
+        
+        /* Floating Dolphins Animation */
+        .dolphin-float {
+            position: fixed;
+            font-size: 30px;
+            pointer-events: none;
+            z-index: 1;
+            animation: swim 6s infinite ease-in-out;
+        }
+        @keyframes swim {
+            0% { transform: translate(-100px, 100vh) rotate(0deg); }
+            100% { transform: translate(100vw, -100px) rotate(360deg); }
+        }
+
+        /* Hero Section */
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid var(--white);
+        }
+
+        h1 { font-family: 'Caveat', cursive; color: var(--dark-pink); font-size: 3rem; margin: 10px 0; }
+        .nickname { font-weight: 700; color: #5fa8d3; }
+
+        /* Fitur 1: Love Counter */
+        .counter-box { font-size: 0.9rem; background: var(--white); padding: 10px; border-radius: 15px; margin: 15px 0; }
+        #love-count { font-size: 1.5rem; font-weight: bold; color: var(--dark-pink); }
+
+        /* Fitur 2: Resep Dokter */
+        .prescription {
+            background: #fff;
+            border-left: 5px solid #ff0000;
+            text-align: left;
+            padding: 15px;
+            font-size: 0.85rem;
+            margin: 20px 0;
+            position: relative;
+        }
+        .prescription::after { content: '℞'; position: absolute; right: 10px; top: 10px; font-size: 2rem; color: #eee; }
+
+        /* Buttons */
+        .btn {
+            background: var(--dark-pink);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 5px;
+        }
+        .btn-blue { background: var(--blue-dolphin); }
+        #no-btn { position: absolute; transition: 0.2s; }
+
+        /* Surprise Box */
+        #gift-box { font-size: 50px; cursor: pointer; transition: 0.3s; }
+        #gift-box:hover { transform: scale(1.2) rotate(10deg); }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div id="gift-box" onclick="openGift()">🎁</div>
+            <p style="font-size: 0.8rem; color: #888;">Klik kado di atas!</p>
+            <h1>Hai, <span class="nickname">Bunda Dolphinn</span>! ❤️</h1>
+            <p>Spesial buat <b>Diva Sayangg</b>, <br> <b>Bu Dokter Cantikk</b> paling favorit sedunia.</p>
+            
+            <div class="counter-box">
+                Level sayang aku ke kamu detik ini:<br>
+                <span id="love-count">1000000</span>%
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="prescription">
+                <strong>Resep Kebahagiaan #01402</strong><br>
+                <small>Pasien: Diva Nur Aulia</small><hr>
+                1. Minum air putih yang banyak.<br>
+                2. Jangan lupa istirahat di sela-sela koas/rs.<br>
+                3. Wajib kabari aku kalau kangen.<br>
+                4. Dosis: Peluk online setiap hari.
+            </div>
+            <p style="font-size: 0.9rem;"><i>"Status koneksi kita: <b>Connected with 0% Packet Loss</b>. Hati aku sudah ter-monitor 24/7 di LAN kamu."</i></p>
+        </div>
+
+        <div class="card" style="min-height: 150px; position: relative;">
+            <p>Diva, <b>My Cutee Girlfriendd</b>, janji ya jangan ilang-ilangan?</p>
+            <button class="btn" onclick="showLove()">Janji, Sayang! 🐬</button>
+            <button class="btn btn-blue" id="no-btn" onmouseover="moveNo()">Enggak 😜</button>
+        </div>
+    </div>
+
+    <div id="celebrate" class="overlay" onclick="this.style.display='none'">
+        <div>
+            <h1 style="color: white;">I LOVE YOU, BUNDA DOLPHINN! 💖</h1>
+            <p>Makasih ya udah mau jadi bagian paling penting di hidup aku. <br> Selamat Hari Valentine, Dokter masa depan aku!</p>
+            <p><i>(Klik di mana saja untuk kembali)</i></p>
+        </div>
+    </div>
+
+    <script>
+        // Fitur 1: Love Counter (Terus Bertambah)
+        let count = 1000000;
+        setInterval(() => {
+            count += Math.floor(Math.random() * 10);
+            document.getElementById('love-count').innerText = count.toLocaleString();
+        }, 1000);
+
+        // Fitur 2: Dolphin Animation
+        function createDolphin() {
+            const dolphin = document.createElement('div');
+            dolphin.classList.add('dolphin-float');
+            dolphin.innerHTML = '🐬';
+            dolphin.style.left = Math.random() * 100 + 'vw';
+            dolphin.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(dolphin);
+            setTimeout(() => dolphin.remove(), 6000);
+        }
+        setInterval(createDolphin, 2000);
+
+        // Fitur 3: Tombol "Enggak" yang Lari
+        function moveNo() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        // Fitur 4: Surprise Box
+        function openGift() {
+            alert("Isi kadonya: Tiket nonton + Peluk sepuasnya! 🎟️🤗");
+            for(let i=0; i<15; i++) { setTimeout(createDolphin, i*100); }
+        }
+
+        // Fitur 5: Celebration
+        function showLove() {
+            document.getElementById('celebrate').style.display = 'flex';
+            // Efek Hati
+            for(let i=0; i<30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('dolphin-float');
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    document.body.appendChild(heart);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
